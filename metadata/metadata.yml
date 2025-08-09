@@ -1,0 +1,66 @@
+metadata_version: 1
+name: A-Visual-Attention-Based-Model-for-Bengali-Image-Captioning
+description: |-
+  # Image Reading and Preprocessing in Bengali Image Captioning
+
+  ## How Images Are Read
+
+  The notebook reads images using the Python Imaging Library (Pillow) and TensorFlow. The image paths are constructed from the dataset, and images are loaded for preprocessing and feature extraction.
+
+  - **Image.open(path)**: Used for visualization and basic reading.
+  - **tf.io.read_file(path)** and **tf.image.decode_jpeg**: Used for reading and decoding images for model input.
+
+  ## Expected Image Size
+
+  All images are resized to **299x299 pixels** before being fed into the model. This is required by the InceptionV3 architecture, which expects images of this size.
+
+  - **Resizing step:**
+
+    ```python
+    img = tf.image.resize(img, (299, 299))
+    ```
+
+  ## Preprocessing Details
+
+  ## Checkpointing: Saving Model Progress
+
+  1. **Load and preprocess images:**
+     - Read image files from disk.
+     - Normalize pixel values.
+  2. **Feature extraction:**
+     - Use InceptionV3 (pretrained on ImageNet) to extract features.
+     - Save extracted features for later use.
+     - Tokenize and pad Bengali captions.
+     - Map images to their corresponding caption vectors.
+  3. **Model training and checkpointing:**
+     - Use extracted image features and processed captions to train a visual attention-based model.
+     - The model uses a CNN encoder and RNN decoder with attention.
+     - Model checkpoints are saved regularly to allow recovery and analysis.
+
+  ## Caching InceptionV3 Features
+
+  After preprocessing, each image is passed through the InceptionV3 model to extract features from the last convolutional layer. These features are then cached to disk as `.npy` files for efficient training. This avoids recomputing features every epoch and speeds up training.
+
+  **Caching workflow:**
+
+  1. Unique image paths are collected.
+  2. A TensorFlow dataset is created from these paths and mapped to the `load_image` function for preprocessing.
+  3. Images are batched and passed through the InceptionV3 feature extractor.
+  4. For each image in the batch, the extracted features are saved to disk using `np.save(path_of_feature, features)`.
+
+  **Example code:**
+
+  ```python
+  for img, path in image_dataset:
+      batch_features = image_features_extract_model(img)
+      batch_features = tf.reshape(batch_features, (batch_features.shape[0], -1, batch_features.shape[3]))
+      for bf, p in zip(batch_features, path):
+          path_of_feature = p.numpy().decode("utf-8")
+          np.save(path_of_feature, bf.numpy())
+  ```
+
+  This process ensures that feature extraction is only performed once per image, and the results are reused during model training.
+
+  ## Summary
+
+  The image reading, preprocessing, and feature caching steps ensure that all images are in the correct format and size for efficient feature extraction and model training. Caching features and saving checkpoints make the Bengali image captioning pipeline robust and efficient.

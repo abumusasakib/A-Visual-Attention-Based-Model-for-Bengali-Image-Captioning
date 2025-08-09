@@ -1,0 +1,75 @@
+{
+	"version": 1,
+	"base_image": "registry.codeocean.com/codeocean/miniconda3:4.9.2-cuda11.7.0-cudnn8-ubuntu20.04",
+	"post_install": true,
+	"options": {},
+	"installers": {
+		"apt": {
+			"packages": [
+				{
+					"name": "fontconfig",
+					"version": "2.13.1-2ubuntu3"
+				},
+				{
+					"name": "fonts-freefont-ttf",
+					"version": "20120503-10"
+				},
+				{
+					"name": "libgl1",
+					"version": "1.3.2-1~ubuntu0.20.04.2"
+				},
+				{
+					"name": "libglib2.0-0",
+					"version": "2.64.6-1~ubuntu20.04.9"
+				},
+				{
+					"name": "wget",
+					"version": "1.20.3-1ubuntu2.1"
+				}
+			],
+			"install_software_properties_common": true
+		},
+		"pip3": {
+			"packages": [
+				{
+					"name": "jupyter",
+					"version": "1.1.1"
+				},
+				{
+					"name": "matplotlib",
+					"version": "3.7.5"
+				},
+				{
+					"name": "numpy",
+					"version": "1.24.4"
+				},
+				{
+					"name": "opencv-python",
+					"version": "4.12.0.88"
+				},
+				{
+					"name": "pillow",
+					"version": "10.4.0"
+				},
+				{
+					"name": "protobuf",
+					"version": "3.20.0"
+				},
+				{
+					"name": "scikit-learn",
+					"version": "1.3.2"
+				},
+				{
+					"name": "tensorflow",
+					"version": "2.8.0"
+				},
+				{
+					"name": "tqdm",
+					"version": "4.67.1"
+				}
+			],
+			"options": {},
+			"pre_install_options": {}
+		}
+	}
+}

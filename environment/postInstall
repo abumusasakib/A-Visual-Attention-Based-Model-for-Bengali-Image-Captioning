@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansBengali-unhinted.zip
+unzip NotoSansBengali-unhinted.zip -d noto_bengali
+
+mkdir -p ~/.fonts
+cp noto_bengali/NotoSansBengali-Regular.ttf ~/.fonts/
+fc-cache -fv  # Refresh font cache
