@@ -1,0 +1,7 @@
+{
+    "best_epoch": 4,
+    "best_val_loss": 0.953224802017212,
+    "best_model_dir": "/results/best_model",
+    "best_model_ckpt": "/results/best_model/ckpt-4",
+    "tokenizer_path": "/results/tokenizer.pkl"
+}

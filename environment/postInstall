@@ -1,9 +1,44 @@
 #!/usr/bin/env bash
+# Enhanced postInstall script for Bengali fonts
 set -e
 
-wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansBengali-unhinted.zip
-unzip NotoSansBengali-unhinted.zip -d noto_bengali
+echo "🌐 Setting up Bengali fonts for matplotlib rendering..."
 
-mkdir -p ~/.fonts
-cp noto_bengali/NotoSansBengali-Regular.ttf ~/.fonts/
-fc-cache -fv  # Refresh font cache
+FONT_DIR="/usr/share/fonts/truetype/bengali"
+mkdir -p "$FONT_DIR"
+
+download_and_install() {
+    local url=$1
+    local name=$2
+    echo "⬇️ Downloading $name..."
+    wget -q "$url" -O "${name}.zip" || { echo "⚠️ Failed to download $name"; return; }
+
+    echo "📦 Extracting $name..."
+    unzip -qo "${name}.zip" -d "${name}" || { 
+        echo "⚠️ Failed to unzip $name"
+        rm -f "${name}.zip"
+        return
+    }
+
+    # Copy all ttf/otf fonts
+    find "${name}" -type f \( -iname "*.ttf" -o -iname "*.otf" \) -exec cp -v {} "$FONT_DIR" \; || true
+
+    rm -rf "${name}" "${name}.zip"
+}
+
+# --- Bengali Fonts ---
+download_and_install "https://noto-website-2.storage.googleapis.com/pkgs/NotoSansBengali-unhinted.zip" "NotoSansBengali"
+download_and_install "https://noto-website-2.storage.googleapis.com/pkgs/NotoSerifBengali-unhinted.zip" "NotoSerifBengali"
+download_and_install "https://www.wfonts.com/download/data/2016/04/29/solaimanlipi/solaimanlipi.zip" "SolaimanLipi"
+
+# --- Bengali Fonts (Kalpurush & Mukti) ---
+download_and_install "https://www.easybengalityping.com/public/resource/font/bangla/unicode/kalpurush-unicode-bangla-font.zip" "Kalpurush"
+download_and_install "https://www.wfonts.com/download/data/2016/04/27/mukti/mukti.zip" "Mukti"
+
+# Refresh font cache
+echo "🔄 Refreshing font cache..."
+fc-cache -fv || echo "⚠️ Font cache refresh failed, but continuing"
+
+# Verify installation
+echo "✅ Installed Bengali fonts:"
+fc-list | grep -Ei "bengali|solaiman|kalpurush|mukti|dejavu|freeserif" || echo "⚠️ No fonts found after install"

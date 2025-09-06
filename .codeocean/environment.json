@@ -7,12 +7,32 @@
 		"apt": {
 			"packages": [
 				{
+					"name": "build-essential",
+					"version": "12.8ubuntu1.1"
+				},
+				{
 					"name": "fontconfig",
 					"version": "2.13.1-2ubuntu3"
 				},
 				{
+					"name": "fonts-dejavu-core",
+					"version": "2.37-1"
+				},
+				{
 					"name": "fonts-freefont-ttf",
 					"version": "20120503-10"
+				},
+				{
+					"name": "gcc",
+					"version": "4:9.3.0-1ubuntu2"
+				},
+				{
+					"name": "libcairo2-dev",
+					"version": "1.16.0-4ubuntu1"
+				},
+				{
+					"name": "libfribidi-dev",
+					"version": "1.0.8-2ubuntu0.1"
 				},
 				{
 					"name": "libgl1",
@@ -21,6 +41,26 @@
 				{
 					"name": "libglib2.0-0",
 					"version": "2.64.6-1~ubuntu20.04.9"
+				},
+				{
+					"name": "libharfbuzz-dev",
+					"version": "2.6.4-1ubuntu4.3"
+				},
+				{
+					"name": "libpango1.0-dev",
+					"version": "1.44.7-2ubuntu4"
+				},
+				{
+					"name": "libpangocairo-1.0-0",
+					"version": "1.44.7-2ubuntu4"
+				},
+				{
+					"name": "pkg-config",
+					"version": "0.29.1-0ubuntu4"
+				},
+				{
+					"name": "python3-dev",
+					"version": "3.8.2-0ubuntu2"
 				},
 				{
 					"name": "wget",
@@ -40,6 +80,10 @@
 					"version": "3.7.5"
 				},
 				{
+					"name": "mplcairo",
+					"version": "0.6.1"
+				},
+				{
 					"name": "numpy",
 					"version": "1.24.4"
 				},
@@ -48,12 +92,20 @@
 					"version": "4.12.0.88"
 				},
 				{
+					"name": "pangocairocffi",
+					"version": "0.7.0"
+				},
+				{
 					"name": "pillow",
 					"version": "10.4.0"
 				},
 				{
 					"name": "protobuf",
 					"version": "3.20.0"
+				},
+				{
+					"name": "pycairo",
+					"version": "1.26.1"
 				},
 				{
 					"name": "scikit-learn",
